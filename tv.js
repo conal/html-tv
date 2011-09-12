@@ -98,11 +98,11 @@ function iSlider(min,max,value) {
         var top = $(parent);
         top.append('\
                    <table style="width:100%"><tr>\
-                   <td class="slider-min" style="width:0px"></td>\
+                   <td class="slider-min" style="width:1px"></td>\
                    <td><div></div></td>\
-                   <td class="slider-max" style="width:0px"></td>\
+                   <td class="slider-max" style="width:1px"></td>\
                    <td style="width:5px"></td>\
-                   <td style="width:0px"><input type="text" size="8"></td>\
+                   <td style="width:1px"><input type="text" size="8"></td>\
                    </tr></table>\
                    ');
         var slider = top.find("div").first(),
@@ -139,9 +139,10 @@ function iSlider(min,max,value) {
 
 $(function () {
         $(".TV").append(function () {
-                var top    = $(this),
-                    gui    = eval(top.attr("gui")),
-                    value  = eval(top.attr("value")),
+                var top    = $(this);
+                console.log(top.attr("value"));
+                var gui    = eval("(" + top.attr("gui") + ")"),
+                    value  = eval("(" + top.attr("value") + ")"),
                     change = gui(top);
                 change(value);
                 top[0].change = change; // for possible later use
