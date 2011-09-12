@@ -135,27 +135,24 @@ function iSlider(min,max,value) {
 // adds a 'change' function to that element to allow later dynamic
 // change.
 
-// $(function () { $("#tv-val-show").text("hi there"); });
-
 $(function () {
         $(".TV").append(function () {
-                var top    = $(this);
+                var top  = $(this)
+                    grab = function (at) { return eval("(" + top.attr(at) + ")"); };
                 console.log(top.attr("value"));
-                var gui    = eval("(" + top.attr("gui") + ")"),
-                    value  = eval("(" + top.attr("value") + ")"),
+                var gui    = grab("gui"),
+                    value  = grab("value"),
                     change = gui(top);
-                change(value);
-                top[0].change = change; // for possible later use
+                top.data("change",change);   // Save for possible later use
+                change(value);               // Initial setting
+                // top.data("change")(value); // alternatively
+                // console.log(top.data("change")); // retrieve
             });
 });
 
+// Note the attachment of the 'change' function via the 'data' method,
+// to avoid a space leak. See http://api.jquery.com/data/ and
+// http://www.google.com/search?&q=jquery+ui+plugin+dom+element+memory+leak
 
-// More succinctly:
 
-/*
-$(function () {
-  $(".TV").append(function () {
-    eval($(this).attr("gui"))($(this))(eval($(this).attr("value"))); });
-});
-*/
 
